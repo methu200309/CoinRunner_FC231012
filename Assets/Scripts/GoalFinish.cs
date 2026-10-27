@@ -4,6 +4,7 @@ using UnityEngine;
 public class GoalFinish : MonoBehaviour
 {
     public GameObject winText;
+    public GameObject playAgainButton;
 
     private bool levelCompleted = false;
 
@@ -18,6 +19,11 @@ public class GoalFinish : MonoBehaviour
             if (winText != null)
             {
                 winText.SetActive(true);
+            }
+
+            if (playAgainButton != null)
+            {
+                playAgainButton.SetActive(true);
             }
 
             Debug.Log("LEVEL COMPLETE!");

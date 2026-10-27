@@ -5,13 +5,16 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 6f;
     public float jumpForce = 12f;
+    public float fallLimit = -8f;
 
     private Rigidbody2D rb;
     private bool isGrounded;
+    private Vector3 startPosition;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        startPosition = transform.position;
     }
 
     void Update()
@@ -30,6 +33,21 @@ public class PlayerMovement : MonoBehaviour
                 jumpForce
             );
         }
+
+        // Respawn when player falls into a gap
+        if (transform.position.y < fallLimit)
+        {
+            Respawn();
+        }
+    }
+
+    void Respawn()
+    {
+        transform.position = startPosition;
+        rb.linearVelocity = Vector2.zero;
+        isGrounded = false;
+
+        Debug.Log("Player Respawned!");
     }
 
     void OnCollisionStay2D(Collision2D collision)
